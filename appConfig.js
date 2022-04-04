@@ -26,7 +26,16 @@ function serviceRoutes(app) {
     /* eslint-disable global-require */
 
     // Temporary allow all urls
-    const safesitelist = ['https://htt-wallet.io', 'https://app.htt-wallet.io', 'https://admin.htt-wallet.io'];
+    const safesitelist =
+        process.env.NODE_ENV == "production" ? [
+            "https://htt-wallet.io",
+            "https://app.htt-wallet.io",
+            "https://admin.htt-wallet.io",
+        ] : [
+            "https://dev.htt-wallet.io",
+            "https://app.dev.htt-wallet.io",
+            "https://admin.dev.htt-wallet.io",
+        ];
 
     const corsOptions = {
         origin: function(origin, callback) {

@@ -20,6 +20,11 @@ exports.setup = function(options, seedLink) {
 
 exports.up = function(db) {
   var filePath = path.join(__dirname, 'sqls', '20220329210743-users-up.sql');
+  const allowed = ["production"];
+  if (!allowed.includes(db.internals.argv.env)) {
+    console.log(`Environment is not ${allowed}. Skipping ${filePath}`);
+    return new Promise( function( resolve, reject ) { resolve(""); });
+  }
   return new Promise( function( resolve, reject ) {
     fs.readFile(filePath, {encoding: 'utf-8'}, function(err,data){
       if (err) return reject(err);
@@ -35,6 +40,11 @@ exports.up = function(db) {
 
 exports.down = function(db) {
   var filePath = path.join(__dirname, 'sqls', '20220329210743-users-down.sql');
+  const allowed = ["production"];
+  if (!allowed.includes(db.internals.argv.env)) {
+    console.log(`Environment is not ${allowed}. Skipping ${filePath}`);
+    return new Promise( function( resolve, reject ) { resolve(""); });
+  }
   return new Promise( function( resolve, reject ) {
     fs.readFile(filePath, {encoding: 'utf-8'}, function(err,data){
       if (err) return reject(err);
